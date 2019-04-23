@@ -171,6 +171,12 @@ void setup() {
 
     for (int i = 0; i < getHomeComponentLength(); i++) {
         pinMode(homeComponent[i].pin, OUTPUT);
+
+        if(homeComponent[i].state){
+            digitalWrite(homeComponent[i].pin, HIGH);
+        }else{
+            digitalWrite(homeComponent[i].pin, LOW);
+        }
     }
 
     logArduino("arduinoInit");
