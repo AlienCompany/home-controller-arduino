@@ -27,6 +27,8 @@ HomeComponent homeComponent[] = {
         {"sdb", "radiator", true, 51}
 };
 
+
+
 void logArduino(const char *msg) {
     Serial.print("log,");
     Serial.println(msg);
@@ -44,6 +46,28 @@ void logArduino(const double msg) {
 
 int getHomeComponentLength() {
     return sizeof(homeComponent) / sizeof(HomeComponent);
+}
+
+void sendState(int componentIndex) {
+
+    Serial.print("state,");
+    Serial.print(homeComponent[componentIndex].room);
+    Serial.print(',');
+    Serial.print(homeComponent[componentIndex].component);
+    Serial.print(',');
+    Serial.println(homeComponent[componentIndex].state);
+
+}
+void sendStates() {
+
+    int homeComponentLength = getHomeComponentLength();
+
+    for(int i = 0; i < homeComponentLength; i++){
+
+        sendState(i);
+
+    }
+
 }
 
 void changeStateComponent(char *room, char *component, bool state) {
@@ -76,8 +100,11 @@ void changeStateComponent(char *room, char *component, bool state) {
         homeComponent[indexFound].state = false;
     }
 
-
+    sendState(indexFound);
+    
 }
+
+
 
 void readSrvCommand() {
 
@@ -90,8 +117,6 @@ void readSrvCommand() {
     int i = 0;
     bool state;
     char c;
-
-    int homeComponentLength = getHomeComponentLength();
 
     do {
         if(i >= maxCommandLength){
@@ -149,21 +174,13 @@ void readSrvCommand() {
     }
     if(strcmp(command, "getState") == 0){
 
-        for(i = 0; i < homeComponentLength; i++){
-
-            Serial.print("state,");
-            Serial.print(homeComponent[i].room);
-            Serial.print(',');
-            Serial.print(homeComponent[i].component);
-            Serial.print(',');
-            Serial.println(homeComponent[i].state);
-
-        }
+        sendStates();
 
     }
 
     delete (tab);
 }
+
 
 
 void setup() {
@@ -180,6 +197,7 @@ void setup() {
     }
 
     logArduino("arduinoInit");
+    sendStates();
 }
 
 void loop() {
