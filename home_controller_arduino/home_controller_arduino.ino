@@ -8,23 +8,23 @@ struct HomeComponent {
 };
 
 HomeComponent homeComponent[] = {
-        {"ext", "light",  true,  22},
-        {"ext", "garage", false, 24},
-        {"ext", "door",   true,  26},
-        {"chambre", "light", true, 28},
-        {"chambre", "shutter", false, 30},
-        {"salon", "computer", true, 32},
-        {"salon", "light", true, 34},
-        {"salon", "shutter", false, 36},
-        {"salon", "tv", false, 38},
-        {"salon", "printer", true, 40},
-        {"cuisine", "light", true, 42},
-        {"cuisine", "shutter", false, 44},
-        {"cuisine", "dishwasher", false, 46},
-        {"cuisine", "washing machine", true, 48},
-        {"sdb", "light", false, 50},
-        {"sdb", "shutter", false, 52},
-        {"sdb", "radiator", true, 51}
+        {"sdb", "shutter", false, 22},
+        {"ext", "door",   true,  24},
+        {"ext", "light",  true,  26}, 
+        {"ext", "garage", false, 28},
+        {"sdb", "light", false, 30},
+        {"sdb", "radiator", true, 32},
+        {"cuisine", "shutter", false, 34},
+        {"cuisine", "light", true, 36},
+        {"cuisine", "dishwasher", false, 38},
+        {"cuisine", "washingMachine", true, 40},
+        {"salon", "computer", true, 42},
+        {"salon", "printer", true, 44},
+        {"salon", "light", true, 46},
+        {"chambre", "light", true, 48},
+        {"salon", "tv", false, 50},
+        {"chambre", "shutter", false, 52},
+        {"salon", "shutter", false, 51}
 };
 
 
@@ -101,7 +101,7 @@ void changeStateComponent(char *room, char *component, bool state) {
     }
 
     sendState(indexFound);
-    
+
 }
 
 
